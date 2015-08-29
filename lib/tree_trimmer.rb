@@ -11,7 +11,9 @@ module TreeTrimmer
   private
 
   class Base
-    def initialize
+    def initialize(stdin: $stdin, stdout: $stdout)
+      @stdin  = stdin
+      @stdout = stdout
       sanitize_branches!
     end
 
@@ -24,10 +26,12 @@ module TreeTrimmer
         header_proc: header_proc
       ).prompt
 
-      delete_branches
+      delete_branches_confirmation
     end
 
     private
+
+    attr_reader :stdout, :stdin
 
     def downup_options
       branch_options.zip(branches).each_with_object({}) do |option, hash|
@@ -43,44 +47,44 @@ module TreeTrimmer
       @branches ||= IO.popen("git branch").each_line.map(&:chomp).map(&:lstrip)
     end
 
-    def delete_branches
-      puts "\n\nDelete Branches?\n".red
-      puts @selection
-      print "\n(y/n) > ".light_black
-      process_input(gets.chomp)
+    def delete_branches_confirmation
+      stdout.puts "\n\nDelete Branches?\n".red
+      stdout.puts @selection
+      stdout.print "\n(y/n) > ".light_black
+      process_input(stdin.gets.chomp)
     end
 
     def process_input(input)
       case input
-      when "y"
-        @selection.each do |branch|
-          cmd = "git branch -D #{branch}"
-          puts "\n...running " + cmd.red + "\n\n"
-          system(cmd)
-          quit_or_continue
-        end
-      when "n"
-        quit_or_continue
+      when "y" then delete_branches!
+      when "n" then quit_or_continue
       else
-        puts "please choose y or n"
-        delete_branches
+        stdout.puts "please choose y or n"
+        delete_branches_confirmation
+      end
+    end
+
+    def delete_branches!
+      @selection.each do |branch|
+        cmd = "git branch -D #{branch}"
+        stdout.puts "\n...running " + cmd.red + "\n\n"
+        system(cmd)
+        quit_or_continue
       end
     end
 
     def quit_or_continue
-      puts ("-" * 80).light_black
-      puts "\nq or quit to abort".light_red
-      puts "c or continue to continue\n".light_yellow
-      print "> "
-      input = gets.chomp
-      case input
+      stdout.puts ("-" * 80).light_black
+      stdout.puts "\nq or quit to abort".light_red
+      stdout.puts "c or continue to continue\n".light_yellow
+      stdout.print "> "
+      case stdin.gets.chomp
       when "q", "quit"
-        puts "\n...thanks for using tree trimmer!".light_cyan
-        exit
+        stdout.puts "\n...thanks for using tree trimmer!".light_cyan
       when "c", "continue"
         trim_branches
       else
-        puts "please choose a relevant option"
+        stdout.puts "please choose a relevant option"
         quit_or_continue
       end
     end
@@ -95,9 +99,9 @@ module TreeTrimmer
 
     def header_proc
       proc {
-        puts "\n------------------"
-        puts "-- Tree Trimmer --"
-        puts "------------------\n\n"
+        stdout.puts "\n------------------"
+        stdout.puts "-- Tree Trimmer --"
+        stdout.puts "------------------\n\n"
       }
     end
   end
