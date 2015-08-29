@@ -57,11 +57,31 @@ module TreeTrimmer
           cmd = "git branch -D #{branch}"
           puts "\n...running " + cmd.red + "\n\n"
           system(cmd)
+          quit_or_continue
         end
       when "n"
+        quit_or_continue
       else
         puts "please choose y or n"
         delete_branches
+      end
+    end
+
+    def quit_or_continue
+      puts ("-" * 80).light_black
+      puts "\nq or quit to abort".light_red
+      puts "c or continue to continue\n".light_yellow
+      print "> "
+      input = gets.chomp
+      case input
+      when "q", "quit"
+        puts "\n...thanks for using tree trimmer!".light_cyan
+        exit
+      when "c", "continue"
+        trim_branches
+      else
+        puts "please choose a relevant option"
+        quit_or_continue
       end
     end
 
