@@ -1,5 +1,7 @@
 # TreeTrimmer
 
+### \*\*WARNING THIS GEM IS PRE 1.0 AND STILL UNSTABLE\*\*
+
 A soon-to-be command line tool for cleaning up Git Branches
 
 ## Installation
