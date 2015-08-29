@@ -18,7 +18,8 @@ module TreeTrimmer
     def trim_branches
       @selection = Downup::Base.new(
         options: downup_options,
-        type: :multi_select
+        type: :multi_select,
+        header_proc: header_proc
       ).prompt
 
       delete_branches
@@ -69,5 +70,15 @@ module TreeTrimmer
         end
       end
     end
+
+    def header_proc
+      proc {
+        puts "\n------------------"
+        puts "-- Tree Trimmer --"
+        puts "------------------\n\n"
+      }
+    end
   end
 end
+
+TreeTrimmer.lets_clean_up_some_branches
