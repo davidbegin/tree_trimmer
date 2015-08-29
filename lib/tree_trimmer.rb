@@ -1,6 +1,6 @@
 require "tree_trimmer/version"
-require "downup"
 require "colorize"
+require "downup"
 
 module TreeTrimmer
   def self.lets_clean_up_some_branches
@@ -19,6 +19,8 @@ module TreeTrimmer
       @selection = Downup::Base.new(
         options: downup_options,
         type: :multi_select,
+        multi_select_selector: "x",
+        selected_color: :red,
         header_proc: header_proc
       ).prompt
 
@@ -80,5 +82,3 @@ module TreeTrimmer
     end
   end
 end
-
-TreeTrimmer.lets_clean_up_some_branches
