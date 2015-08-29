@@ -1,5 +1,6 @@
 require "tree_trimmer/version"
 require "downup"
+require "colorize"
 
 module TreeTrimmer
   def self.lets_clean_up_some_branches
@@ -12,10 +13,32 @@ module TreeTrimmer
         hash[option.first] = option.last
       end
 
-    puts selection = Downup::Base.new(
+    selection = Downup::Base.new(
       options: branch_options,
       type: :multi_select
     ).prompt
+
+    delete_branches(selection)
+  end
+
+  def self.delete_branches(selection)
+    puts "\n\nDelete Branches?\n".red
+    puts selection
+
+    print "\n(y/n) > ".light_black
+    input = gets.chomp
+
+    case input
+    when "y"
+      selection.each do |branch|
+        cmd = "git branch -D #{branch}"
+        puts "\n...running " + cmd.red + "\n\n"
+        system(cmd)
+      end
+    when "n"
+    else
+      delete_branches(selection)
+    end
   end
 
   def self.sanitize_branches!(branches)
