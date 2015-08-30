@@ -27,6 +27,8 @@ module TreeTrimmer
       ).prompt
 
       delete_branches_confirmation
+
+      @selection
     end
 
     private

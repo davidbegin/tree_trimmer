@@ -1,46 +1,7 @@
 $LOAD_PATH << "test"
 require 'minitest_helper'
-
-class FakeStdout
-  attr_reader :output
-
-  def initialize
-    @output     = []
-  end
-
-  def puts(msg)
-    output << msg
-  end
-
-  def print(msg)
-    output << msg
-  end
-end
-
-class FakeStdin
-  def initialize(user_input)
-    @user_input = user_input
-  end
-
-  def gets
-    @user_input.pop
-  end
-end
-
-module Downup
-  class Base
-    class << self
-      def set_prompt_return(retval)
-        @retval = retval
-      end
-
-      def new(*)
-        @mock = Minitest::Mock.new
-        @mock.expect(:prompt, @retval)
-      end
-    end
-  end
-end
+require_relative "fake_io"
+require_relative "fake_downup"
 
 TreeTrimmer::Base.class_eval do
   def branches
@@ -60,11 +21,17 @@ class TestTreeTrimmer < Minitest::Test
       stdin: stdin, stdout: FakeStdout.new
     )
 
+    do_not_delete_branches_in_test!
+    result = subject.trim_branches
+    assert_equal result, ["branch-one"]
+  end
+
+  private
+
+  def do_not_delete_branches_in_test!
     TreeTrimmer::Base.class_eval do
       def delete_branches!
       end
     end
-
-    subject.trim_branches
   end
 end
