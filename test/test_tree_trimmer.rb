@@ -14,7 +14,7 @@ class TestTreeTrimmer < Minitest::Test
     refute_nil ::TreeTrimmer::VERSION
   end
 
-  def test_selecting_an_option
+  def test_trim_branches_returns_the_branches_deleted
     Downup::Base.set_prompt_return(["branch-one"])
     stdin = FakeStdin.new(["q", "n"])
     subject = TreeTrimmer::Base.new(
