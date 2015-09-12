@@ -1,7 +1,4 @@
-$LOAD_PATH << "test"
-require 'minitest_helper'
-require_relative "fake_io"
-require_relative "fake_downup"
+require_relative 'minitest_helper'
 
 TreeTrimmer::Base.class_eval do
   def branches
