@@ -1,6 +1,6 @@
 # TreeTrimmer
 
-<a href="https://codeclimate.com/github/presidentJFK/tree_trimmer"><img src="https://codeclimate.com/github/presidentJFK/tree_trimmer/badges/gpa.svg" /></a>
+[![Code Climate](https://codeclimate.com/github/presidentJFK/tree_trimmer/badges/gpa.svg)](https://codeclimate.com/github/presidentJFK/tree_trimmer) [![Dependency Status](https://gemnasium.com/presidentJFK/tree_trimmer.svg)](https://gemnasium.com/presidentJFK/tree_trimmer)
 
 ### \*\*WARNING THIS GEM IS PRE 1.0 AND STILL UNSTABLE\*\*
 
