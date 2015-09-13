@@ -1,6 +1,6 @@
 # TreeTrimmer
 
-[![Code Climate](https://codeclimate.com/github/presidentJFK/tree_trimmer/badges/gpa.svg)](https://codeclimate.com/github/presidentJFK/tree_trimmer) [![Dependency Status](https://gemnasium.com/presidentJFK/tree_trimmer.svg)](https://gemnasium.com/presidentJFK/tree_trimmer)
+[![Build Status](https://travis-ci.org/presidentJFK/tree_trimmer.svg?branch=master)](https://travis-ci.org/presidentJFK/tree_trimmer) [![Code Climate](https://codeclimate.com/github/presidentJFK/tree_trimmer/badges/gpa.svg)](https://codeclimate.com/github/presidentJFK/tree_trimmer) [![Dependency Status](https://gemnasium.com/presidentJFK/tree_trimmer.svg)](https://gemnasium.com/presidentJFK/tree_trimmer)
 
 ### \*\*WARNING THIS GEM IS PRE 1.0 AND STILL UNSTABLE\*\*
 
