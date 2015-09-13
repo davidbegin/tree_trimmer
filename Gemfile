@@ -7,3 +7,5 @@ group :test do
   gem "faker"
   gem "minitest"
 end
+
+gem "codeclimate-test-reporter", group: :test, require: nil
