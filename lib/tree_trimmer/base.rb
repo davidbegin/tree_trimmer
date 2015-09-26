@@ -9,9 +9,17 @@ module TreeTrimmer
       sanitize_branches!
     end
 
+    # Uses the git branches of the current folder
+    # to create a Menu with Downup
+    #
+    # Once branches are choosen,
+    # users are prompted to confirm delete the choosen branches.
+    #
+    # The appropiate action is taken based on the user's input
+    # and the deleted or undeleted branches are returned.
     def trim_branches
       @selection = Downup::Base.new(
-        options: downup_options,
+        options: branch_options,
         type: :multi_select,
         multi_select_selector: "x",
         selected_color: :red,
@@ -19,7 +27,6 @@ module TreeTrimmer
       ).prompt
 
       delete_branches_confirmation
-
       @selection
     end
 
@@ -27,14 +34,14 @@ module TreeTrimmer
 
     attr_reader :stdout, :stdin
 
-    def downup_options
-      branch_options.zip(branches).each_with_object({}) do |option, hash|
+    def branch_options
+      branch_keys.zip(branches).each_with_object({}) do |option, hash|
         hash[option.first] = option.last
       end
     end
 
-    def branch_options
-      @branch_options ||= ("a".."z").take(branches.count)
+    def branch_keys
+      @branch_keys ||= ("a".."z").take(branches.count)
     end
 
     def branches
@@ -85,9 +92,7 @@ module TreeTrimmer
 
     def sanitize_branches!
       branches.each do |branch|
-        if branch.include?("master")
-          branches.delete(branch)
-        end
+        branches.delete(branch) if branch.include?("master")
       end
     end
 

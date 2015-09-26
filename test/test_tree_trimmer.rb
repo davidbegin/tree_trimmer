@@ -2,7 +2,6 @@ require_relative 'minitest_helper'
 
 class TestTreeTrimmer < Minitest::Test
   def setup
-
     TreeTrimmer.instance_eval do
       def self.tree_trimmer
         mock = Minitest::Mock.new
