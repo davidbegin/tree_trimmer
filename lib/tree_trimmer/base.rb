@@ -75,10 +75,7 @@ module TreeTrimmer
     end
 
     def quit_or_continue
-      stdout.puts ("-" * 80).light_black
-      stdout.puts "\nq or quit to abort".light_red
-      stdout.puts "c or continue to continue\n".light_yellow
-      stdout.print "> "
+      quit_or_continue_prompt
       case stdin.gets.chomp
       when "q", "quit"
         stdout.puts "\n...thanks for using tree trimmer!".light_cyan
@@ -94,6 +91,13 @@ module TreeTrimmer
       branches.each do |branch|
         branches.delete(branch) if branch.include?("master")
       end
+    end
+
+    def quit_or_continue_prompt
+      stdout.puts ("-" * 80).light_black
+      stdout.puts "\nq or quit to abort".light_red
+      stdout.puts "c or continue to continue\n".light_yellow
+      stdout.print "> "
     end
 
     def header_proc
