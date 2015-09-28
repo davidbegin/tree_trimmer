@@ -51,7 +51,7 @@ module TreeTrimmer
     end
 
     def branch_keys
-      @branch_keys ||= ("a".."z").take(branches.count)
+      ("a".."z").take(branches.count)
     end
 
     def branches
