@@ -3,9 +3,19 @@ require "downup"
 
 module TreeTrimmer
   class Base
-    def initialize(stdin: $stdin, stdout: $stdout)
-      @stdin  = stdin
-      @stdout = stdout
+
+    # @param multi_select_selector [String] selector for Downup Menu of when
+    #   chosing branches to delete
+    # @param selected_color [Symbol] color of selector when chosing a branch to delete
+    def initialize(multi_select_selector: "x",
+                   selected_color: :red,
+                   stdin: $stdin,
+                   stdout: $stdout)
+
+      @stdin                 = stdin
+      @stdout                = stdout
+      @multi_select_selector = multi_select_selector
+      @selected_color        = selected_color
       sanitize_branches!
     end
 
@@ -21,8 +31,8 @@ module TreeTrimmer
       @selection = Downup::Base.new(
         options: branch_options,
         type: :multi_select,
-        multi_select_selector: "x",
-        selected_color: :red,
+        multi_select_selector: multi_select_selector,
+        selected_color: selected_color,
         header_proc: header_proc
       ).prompt
 
@@ -32,7 +42,7 @@ module TreeTrimmer
 
     private
 
-    attr_reader :stdout, :stdin
+    attr_reader :stdout, :stdin, :multi_select_selector, :selected_color
 
     def branch_options
       branch_keys.zip(branches).each_with_object({}) do |option, hash|
