@@ -55,7 +55,7 @@ module TreeTrimmer
     end
 
     def branches
-      @branches ||= IO.popen("git branch").each_line.map(&:chomp).map(&:lstrip)
+      IO.popen("git branch").each_line.map(&:chomp).map(&:lstrip)
     end
 
     def delete_branches_confirmation
