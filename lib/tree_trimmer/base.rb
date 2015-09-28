@@ -80,8 +80,8 @@ module TreeTrimmer
         cmd = "git branch -D #{branch}"
         stdout.puts "\n...running " + cmd.red + "\n\n"
         system(cmd)
-        quit_or_continue
       end
+      quit_or_continue
     end
 
     def quit_or_continue
