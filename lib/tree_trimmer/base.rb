@@ -81,11 +81,11 @@ module TreeTrimmer
         stdout.puts "\n...running " + cmd.red + "\n\n"
         system(cmd)
       end
+      quit_or_continue_prompt
       quit_or_continue
     end
 
     def quit_or_continue
-      quit_or_continue_prompt
       case stdin.gets.chomp
       when "q", "quit"
         stdout.puts "\n...thanks for using tree trimmer!".light_cyan
