@@ -51,7 +51,14 @@ module TreeTrimmer
     end
 
     def branch_keys
-      ("a".."z").take(branches.count)
+      case
+      when branches.count <= 26
+        ("a".."z").take(branches.count)
+      when branches.count <= 676
+        ("aa".."zz").take(branches.count)
+      else
+        ("aaa".."zzz").take(branches.count)
+      end
     end
 
     def branches
