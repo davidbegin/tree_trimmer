@@ -3,6 +3,7 @@ require "downup"
 
 module TreeTrimmer
   class Base
+    BRANCH_COUNT_LIMIT = 26
 
     # @param multi_select_selector [String] selector for Downup Menu of when
     #   chosing branches to delete
@@ -51,13 +52,17 @@ module TreeTrimmer
     end
 
     def branch_keys
-      case
-      when branches.count <= 26
-        ("a".."z").take(branches.count)
-      when branches.count <= 676
-        ("aa".."zz").take(branches.count)
+      if BRANCH_COUNT_LIMIT > 26
+        case
+        when branches.count <= 26
+          ("a".."z").take(branches.count)
+        when branches.count <= 676
+          ("aa".."zz").take(branches.count)
+        else
+          ("aaa".."zzz").take(branches.count)
+        end
       else
-        ("aaa".."zzz").take(branches.count)
+        ("a".."z").take(branches.count)
       end
     end
 
