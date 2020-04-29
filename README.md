@@ -25,7 +25,7 @@ Or install it yourself as:
 ## Usage
 
 ```bash
-term_trimmer
+tree_trimmer
 ```
 
 ## Development
